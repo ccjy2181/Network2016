@@ -77,10 +77,26 @@ public class Start extends javax.swing.JFrame {
                 MainFrameComponentShown(evt);
             }
         });
+        MainFrame.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                MainFrameKeyPressed(evt);
+            }
+        });
 
         ID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IDActionPerformed(evt);
+            }
+        });
+        ID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                IDKeyPressed(evt);
+            }
+        });
+
+        Password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PasswordKeyPressed(evt);
             }
         });
 
@@ -106,6 +122,11 @@ public class Start extends javax.swing.JFrame {
         Login.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 LoginMouseClicked(evt);
+            }
+        });
+        Login.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                LoginKeyPressed(evt);
             }
         });
 
@@ -196,7 +217,7 @@ public class Start extends javax.swing.JFrame {
          
    
          while(rs1.next()){ 
-            if(ID.equals(rs1.getString("ID"))){
+            if(id.equals(rs1.getString("ID"))){
                //System.out.println(rs1.getString(2));
                if(pw.equals(rs1.getString(2))){
                   // 아이디와 비밀번호 모두 일치하는 경우
@@ -253,9 +274,9 @@ public class Start extends javax.swing.JFrame {
     private void LoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginMouseClicked
         // TODO add your handling code here:
         
-       String ID = ID_F.getText();
-       String PW = PW_F.getText();
-       loginCheck(ID,PW);
+       String InputID = ID.getText();
+       String PW = Password.getText();
+       loginCheck(InputID,PW);
         
     }//GEN-LAST:event_LoginMouseClicked
 
@@ -278,6 +299,38 @@ public class Start extends javax.swing.JFrame {
     private void MainFrameComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_MainFrameComponentAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_MainFrameComponentAdded
+
+    private void LoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LoginKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LoginKeyPressed
+
+    private void MainFrameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MainFrameKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+			//...동작을 실행한다.
+            String InputID = ID.getText();
+            String PW = Password.getText();
+            loginCheck(InputID,PW);
+        }
+    }//GEN-LAST:event_MainFrameKeyPressed
+
+    private void PasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PasswordKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+			//...동작을 실행한다.
+            String InputID = ID.getText();
+            String PW = Password.getText();
+            loginCheck(InputID,PW);
+        }
+    }//GEN-LAST:event_PasswordKeyPressed
+
+    private void IDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_IDKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_TAB) {
+			//...동작을 실행한다.
+            
+        }
+    }//GEN-LAST:event_IDKeyPressed
 
     /**
      * @param args the command line arguments
