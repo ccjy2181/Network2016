@@ -52,6 +52,13 @@
           <Dimension value="[600, 400]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="componentAdded" listener="java.awt.event.ContainerListener" parameters="java.awt.event.ContainerEvent" handler="MainFrameComponentAdded"/>
+        <EventHandler event="componentShown" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="MainFrameComponentShown"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JPanel() {&#xa;    public void paintComponent(Graphics g) {&#xa;                // Approach 1: Dispaly image at at full size&#xa;                g.drawImage(icon.getImage(), 0, 0, null);&#xa;                // Approach 2: Scale image to size of component&#xa;                // Dimension d = getSize();&#xa;                // g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);&#xa;                // Approach 3: Fix the image position in the scroll pane&#xa;                // Point p = scrollPane.getViewport().getViewPosition();&#xa;                // g.drawImage(icon.getImage(), p.x, p.y, null);&#xa;                setOpaque(false); //&#xadf8;&#xb9bc;&#xc744; &#xd45c;&#xc2dc;&#xd558;&#xac8c; &#xc124;&#xc815;,&#xd22c;&#xba85;&#xd558;&#xac8c; &#xc870;&#xc808;&#xa;                super.paintComponent(g);&#xa;            }&#xa;}"/>
+      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">

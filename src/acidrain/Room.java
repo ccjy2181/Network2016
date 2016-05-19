@@ -29,8 +29,6 @@ public class Room extends javax.swing.JFrame {
 
         jComboBox1 = new javax.swing.JComboBox<>();
         UserWindow = new javax.swing.JPanel();
-        User1 = new javax.swing.JPanel();
-        User2 = new javax.swing.JPanel();
         GameWindow = new javax.swing.JPanel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -38,54 +36,17 @@ public class Room extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         UserWindow.setBorder(new javax.swing.border.LineBorder(java.awt.Color.gray, 2, true));
-        UserWindow.setPreferredSize(new java.awt.Dimension(350, 600));
-
-        User1.setBorder(new javax.swing.border.LineBorder(java.awt.Color.darkGray, 1, true));
-        User1.setPreferredSize(new java.awt.Dimension(150, 200));
-
-        javax.swing.GroupLayout User1Layout = new javax.swing.GroupLayout(User1);
-        User1.setLayout(User1Layout);
-        User1Layout.setHorizontalGroup(
-            User1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
-        );
-        User1Layout.setVerticalGroup(
-            User1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 198, Short.MAX_VALUE)
-        );
-
-        User2.setBorder(new javax.swing.border.LineBorder(java.awt.Color.darkGray, 1, true));
-
-        javax.swing.GroupLayout User2Layout = new javax.swing.GroupLayout(User2);
-        User2.setLayout(User2Layout);
-        User2Layout.setHorizontalGroup(
-            User2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
-        );
-        User2Layout.setVerticalGroup(
-            User2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        UserWindow.setPreferredSize(new java.awt.Dimension(250, 600));
 
         javax.swing.GroupLayout UserWindowLayout = new javax.swing.GroupLayout(UserWindow);
         UserWindow.setLayout(UserWindowLayout);
         UserWindowLayout.setHorizontalGroup(
             UserWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserWindowLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(User1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addComponent(User2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGap(0, 246, Short.MAX_VALUE)
         );
         UserWindowLayout.setVerticalGroup(
             UserWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(UserWindowLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(UserWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(User1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(User2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(386, Short.MAX_VALUE))
+            .addGap(0, 596, Short.MAX_VALUE)
         );
 
         GameWindow.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
@@ -96,7 +57,7 @@ public class Room extends javax.swing.JFrame {
         GameWindow.setLayout(GameWindowLayout);
         GameWindowLayout.setHorizontalGroup(
             GameWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 539, Short.MAX_VALUE)
+            .addGap(0, 639, Short.MAX_VALUE)
         );
         GameWindowLayout.setVerticalGroup(
             GameWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +69,7 @@ public class Room extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(GameWindow, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+                .addComponent(GameWindow, javax.swing.GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(UserWindow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -158,8 +119,6 @@ public class Room extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel GameWindow;
-    private javax.swing.JPanel User1;
-    private javax.swing.JPanel User2;
     private javax.swing.JPanel UserWindow;
     private javax.swing.JComboBox<String> jComboBox1;
     // End of variables declaration//GEN-END:variables

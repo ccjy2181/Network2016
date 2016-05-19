@@ -5,21 +5,25 @@
  */
 package acidrain;
 
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import javax.swing.ImageIcon;
+import java.awt.event.*;
+import javax.swing.*;
+import java.awt.*;
+import java.sql.*;
 
 /**
  *
  * @author Administrator
+ * 
  */
+
+
 public class Start extends javax.swing.JFrame {
 
     ImageIcon icon;
     /**
      * Creates new form Start
      */
+    
     public Start() {
         icon = new ImageIcon("D:\\Eclipse\\bg\\start_bg.jpg");
         initComponents();
@@ -34,7 +38,20 @@ public class Start extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        MainFrame = new javax.swing.JPanel();
+        MainFrame = new javax.swing.JPanel() {
+            public void paintComponent(Graphics g) {
+                // Approach 1: Dispaly image at at full size
+                g.drawImage(icon.getImage(), 0, 0, null);
+                // Approach 2: Scale image to size of component
+                // Dimension d = getSize();
+                // g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+                // Approach 3: Fix the image position in the scroll pane
+                // Point p = scrollPane.getViewport().getViewPosition();
+                // g.drawImage(icon.getImage(), p.x, p.y, null);
+                setOpaque(false); //그림을 표시하게 설정,투명하게 조절
+                super.paintComponent(g);
+            }
+        };
         ID = new javax.swing.JFormattedTextField();
         Password = new javax.swing.JPasswordField();
         ID_F = new javax.swing.JTextField();
@@ -50,6 +67,16 @@ public class Start extends javax.swing.JFrame {
         setResizable(false);
 
         MainFrame.setPreferredSize(new java.awt.Dimension(600, 400));
+        MainFrame.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                MainFrameComponentAdded(evt);
+            }
+        });
+        MainFrame.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                MainFrameComponentShown(evt);
+            }
+        });
 
         ID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,6 +166,78 @@ public class Start extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+   
+    private void clearText(){
+      ID_F.setText("");
+      PW_F.setText("");
+   }
+     protected void loginCheck(String id, String pw) {
+      /*
+       * 로그인 체크하는 메소드
+       * 연동된 DB에 있는 자료와 비교하여 체크한다.
+       */
+      try {
+         //드라이버 로딩
+         Class.forName("oracle.jdbc.driver.OracleDriver");
+         String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+         Connection con = DriverManager.getConnection(url,"scott","root");
+         Statement stat = con.createStatement();
+         PreparedStatement pstmt = null;
+                  
+         String query, chkID;
+         String test = String.valueOf(pw);
+         
+         int result = 0;
+         Statement stmt1 = null;
+         // 로그인창의 텍스트필드에 쓴값을 가져오기
+
+         query = "SELECT * FROM MEMBERLIST"; 
+         ResultSet rs1 = stat.executeQuery(query); 
+         
+   
+         while(rs1.next()){ 
+            if(ID.equals(rs1.getString("ID"))){
+               //System.out.println(rs1.getString(2));
+               if(pw.equals(rs1.getString(2))){
+                  // 아이디와 비밀번호 모두 일치하는 경우
+                  result = 1;
+                  clearText();
+                  break;
+               }else{
+                  // 아이디는 일치하나 비밀번호가 잘못된 경우
+                  result = 2;                  
+               }
+               break;
+            }else{
+               // 아이디부터 틀린경우
+               result = 0;               
+            }
+         }
+         if(result ==0 ){
+            String infoText = "로그인 정보가 틀렸습니다.";
+            JOptionPane.showMessageDialog(null, infoText, "알림창", JOptionPane.INFORMATION_MESSAGE);
+         }else if(result == 2){
+            String infoText = "비밀번호가 틀렸습니다.";
+            JOptionPane.showMessageDialog(null, infoText, "알림창", JOptionPane.INFORMATION_MESSAGE);
+         }else if(result ==1){
+             dispose();
+             Lobby L = new Lobby();
+             L.setSize(1050, 800);
+             Dimension frameSize = L.getSize();
+             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+             L.setLocation((screenSize.width - frameSize.width)/2, (screenSize.height - frameSize.height)/2);
+             Container contentPane = L.getContentPane();
+             L.setVisible(true);
+         }
+         stat.close();
+         con.close();
+      } catch (ClassNotFoundException | SQLException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+   }
+    
+    
     private void ID_FActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ID_FActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ID_FActionPerformed
@@ -153,14 +252,11 @@ public class Start extends javax.swing.JFrame {
 
     private void LoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginMouseClicked
         // TODO add your handling code here:
-        dispose();
-        Lobby L = new Lobby();
-        L.setSize(1050, 800);
-        Dimension frameSize = L.getSize();
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        L.setLocation((screenSize.width - frameSize.width)/2, (screenSize.height - frameSize.height)/2);
-        Container contentPane = L.getContentPane();
-        L.setVisible(true);
+        
+       String ID = ID_F.getText();
+       String PW = PW_F.getText();
+       loginCheck(ID,PW);
+        
     }//GEN-LAST:event_LoginMouseClicked
 
     private void Sign_upMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Sign_upMouseClicked
@@ -174,6 +270,14 @@ public class Start extends javax.swing.JFrame {
         NewA.setVisible(true);
         
     }//GEN-LAST:event_Sign_upMouseClicked
+
+    private void MainFrameComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_MainFrameComponentShown
+
+    }//GEN-LAST:event_MainFrameComponentShown
+
+    private void MainFrameComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_MainFrameComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MainFrameComponentAdded
 
     /**
      * @param args the command line arguments
