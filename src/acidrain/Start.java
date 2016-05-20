@@ -52,10 +52,10 @@ public class Start extends javax.swing.JFrame {
                 super.paintComponent(g);
             }
         };
-        ID = new javax.swing.JFormattedTextField();
-        Password = new javax.swing.JPasswordField();
         ID_F = new javax.swing.JTextField();
         PW_F = new javax.swing.JTextField();
+        ID = new javax.swing.JFormattedTextField();
+        Password = new javax.swing.JPasswordField();
         Login = new javax.swing.JButton();
         Sign_up = new javax.swing.JButton();
 
@@ -83,23 +83,6 @@ public class Start extends javax.swing.JFrame {
             }
         });
 
-        ID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IDActionPerformed(evt);
-            }
-        });
-        ID.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                IDKeyPressed(evt);
-            }
-        });
-
-        Password.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                PasswordKeyPressed(evt);
-            }
-        });
-
         ID_F.setEditable(false);
         ID_F.setText("ID");
         ID_F.setToolTipText("");
@@ -115,6 +98,23 @@ public class Start extends javax.swing.JFrame {
         PW_F.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PW_FActionPerformed(evt);
+            }
+        });
+
+        ID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IDActionPerformed(evt);
+            }
+        });
+        ID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                IDKeyPressed(evt);
+            }
+        });
+
+        Password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PasswordKeyPressed(evt);
             }
         });
 
@@ -326,10 +326,7 @@ public class Start extends javax.swing.JFrame {
 
     private void IDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_IDKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_TAB) {
-			//...동작을 실행한다.
-            
-        }
+
     }//GEN-LAST:event_IDKeyPressed
 
     /**

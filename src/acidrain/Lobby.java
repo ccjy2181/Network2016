@@ -44,10 +44,10 @@ public class Lobby extends javax.swing.JFrame {
         ChatWriter = new javax.swing.JFormattedTextField();
         MakeRoom = new javax.swing.JButton();
         JoinRoom = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        Room = new javax.swing.JScrollPane();
+        RoomList = new javax.swing.JList<>();
+        Chat = new javax.swing.JScrollPane();
+        ChatText = new javax.swing.JTextArea();
 
         jScrollPane1.setViewportView(jEditorPane1);
 
@@ -137,19 +137,16 @@ public class Lobby extends javax.swing.JFrame {
 
         JoinRoom.setText("방 들어가기");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        RoomList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList1);
+        Room.setViewportView(RoomList);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList2);
+        ChatText.setColumns(20);
+        ChatText.setRows(5);
+        Chat.setViewportView(ChatText);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -158,17 +155,17 @@ public class Lobby extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(17, Short.MAX_VALUE)
                         .addComponent(MakeRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JoinRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2)
-                            .addComponent(ChatWriter, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane3))))
+                            .addComponent(Chat)
+                            .addComponent(Room)
+                            .addComponent(ChatWriter, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(UserData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -177,14 +174,14 @@ public class Lobby extends javax.swing.JFrame {
             .addComponent(UserData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(96, 96, 96)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Room, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JoinRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MakeRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Chat)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ChatWriter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -211,9 +208,29 @@ public class Lobby extends javax.swing.JFrame {
 
     private void ChatWriterKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ChatWriterKeyPressed
         // TODO add your handling code here:
+
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-			//...동작을 실행한다.
-             
+			//...동작을 실행한다. 
+                        
+             String chat = ChatWriter.getText();
+           /*  ChatWriter.addActionListener(new ActionListener(){
+                  public void actionPerformed(ActionEvent ae){
+                     try{
+                   // 사용자의 이름과 메시지 내용을 전송한다.
+                     writer.println(nameBox.getText()+" : "+ 8 chat);
+                            
+                    ChatWriter.setText("");  // sendBox의 내용을 지운다.
+                   }catch(Exception ie){}
+              } 
+             });
+             pack();
+             */
+           
+             ChatText.append(chat + "\n");
+             ChatWriter.selectAll();
+             ChatText.setCaretPosition(ChatText.getDocument().getLength());
+             ChatWriter.setText("");
+                        
 	}
     }//GEN-LAST:event_ChatWriterKeyPressed
 
@@ -254,20 +271,20 @@ public class Lobby extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane Chat;
+    private javax.swing.JTextArea ChatText;
     private javax.swing.JFormattedTextField ChatWriter;
     private javax.swing.JList<String> Data;
     private javax.swing.JButton Exit;
     private javax.swing.JButton JoinRoom;
     private javax.swing.JButton Logout;
     private javax.swing.JButton MakeRoom;
+    private javax.swing.JScrollPane Room;
+    private javax.swing.JList<String> RoomList;
     private javax.swing.JPanel UserData;
     private javax.swing.JPanel UserImage;
     private javax.swing.JScrollPane UserList;
     private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 }

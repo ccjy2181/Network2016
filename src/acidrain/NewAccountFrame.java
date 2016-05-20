@@ -519,8 +519,4 @@ public class NewAccountFrame extends JFrame implements ActionListener {
          // 정보를 수정하겠다. 즉 아무 이벤트가 없음
       }
    }
-   
-   public static void main(String[] args) {
-      NewAccountFrame frame = new NewAccountFrame();
-   }
 }
