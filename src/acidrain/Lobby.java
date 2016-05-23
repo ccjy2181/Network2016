@@ -2,8 +2,11 @@ package acidrain;
 
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,11 +19,18 @@ import java.awt.event.KeyEvent;
  * @author Administrator
  */
 public class Lobby extends javax.swing.JFrame {
-
+    ImageIcon bg_icon;
+    ImageIcon user_ui;
+    String ID;
+    int RoomListSize = 0;
     /**
      * Creates new form Lobby_2
      */
-    public Lobby() {
+    public Lobby(String UserID) {
+        
+        bg_icon = new ImageIcon("D:\\Eclipse\\bg\\lobby_bg.jpg");
+        user_ui = new ImageIcon("D:\\Eclipse\\bg\\user_ui.png");
+        ID = getID(UserID);
         initComponents();
     }
 
@@ -33,31 +43,96 @@ public class Lobby extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
-        UserData = new javax.swing.JPanel();
+        Background = new javax.swing.JPanel(){
+            public void paintComponent(Graphics g) {
+                // Approach 1: Dispaly image at at full size
+                g.drawImage(bg_icon.getImage(), 0, 0, null);
+                // Approach 2: Scale image to size of component
+                // Dimension d = getSize();
+                // g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+                // Approach 3: Fix the image position in the scroll pane
+                // Point p = scrollPane.getViewport().getViewPosition();
+                // g.drawImage(icon.getImage(), p.x, p.y, null);
+                setOpaque(false); //그림을 표시하게 설정,투명하게 조절
+                super.paintComponent(g);
+            }
+        };
+        Room = new javax.swing.JScrollPane();
+        RoomList = new javax.swing.JList<>();
+        MakeRoom = new javax.swing.JButton(new ImageIcon("D:\\Eclipse\\bg\\makeroom1.jpg"));
+        Chat = new javax.swing.JScrollPane();
+        ChatText = new javax.swing.JTextArea();
+        ChatWriter = new javax.swing.JFormattedTextField();
+        JoinRoom = new javax.swing.JButton(new ImageIcon("D:\\Eclipse\\bg\\joinroom1.jpg"));
+        UserData = new javax.swing.JPanel(){
+            public void paintComponent(Graphics g) {
+                // Approach 1: Dispaly image at at full size
+                g.drawImage(user_ui.getImage(), 0, 0, null);
+                // Approach 2: Scale image to size of component
+                // Dimension d = getSize();
+                // g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+                // Approach 3: Fix the image position in the scroll pane
+                // Point p = scrollPane.getViewport().getViewPosition();
+                // g.drawImage(icon.getImage(), p.x, p.y, null);
+                setOpaque(false); //그림을 표시하게 설정,투명하게 조절
+                super.paintComponent(g);
+            }
+        };
         UserImage = new javax.swing.JPanel();
         UserList = new javax.swing.JScrollPane();
         Data = new javax.swing.JList<>();
-        Logout = new javax.swing.JButton();
-        Exit = new javax.swing.JButton();
-        ChatWriter = new javax.swing.JFormattedTextField();
-        MakeRoom = new javax.swing.JButton();
-        JoinRoom = new javax.swing.JButton();
-        Room = new javax.swing.JScrollPane();
-        RoomList = new javax.swing.JList<>();
-        Chat = new javax.swing.JScrollPane();
-        ChatText = new javax.swing.JTextArea();
-
-        jScrollPane1.setViewportView(jEditorPane1);
+        Logout = new javax.swing.JButton(new ImageIcon("D:\\Eclipse\\bg\\logout1.png"));
+        Exit = new javax.swing.JButton(new ImageIcon("D:\\Eclipse\\bg\\exit1.png"));
+        EntireCheck = new javax.swing.JButton(new ImageIcon("D:\\Eclipse\\bg\\entirecheck1.png"));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1050, 850));
         setMinimumSize(new java.awt.Dimension(1050, 850));
-        setPreferredSize(new java.awt.Dimension(1050, 850));
+        setPreferredSize(new java.awt.Dimension(1050, 800));
         setResizable(false);
 
-        UserData.setBorder(new javax.swing.border.LineBorder(java.awt.Color.gray, 2, true));
+        Background.setFocusable(false);
+        Background.setMaximumSize(new java.awt.Dimension(1050, 800));
+        Background.setMinimumSize(new java.awt.Dimension(1050, 800));
+        Background.setPreferredSize(new java.awt.Dimension(1050, 800));
+        Background.setRequestFocusEnabled(false);
+
+        RoomList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] RoomLists = { "test1", "test2" };
+            public int getSize() { return RoomLists.length; }
+            public String getElementAt(int i) { return RoomLists[i]; }
+        });
+        Room.setViewportView(RoomList);
+
+        MakeRoom.setAlignmentY(0.0F);
+        MakeRoom.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        MakeRoom.setPressedIcon(new ImageIcon("D:\\Eclipse\\bg\\makeroom2.jpg"));
+        MakeRoom.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MakeRoomMouseClicked(evt);
+            }
+        });
+
+        ChatText.setColumns(20);
+        ChatText.setRows(5);
+        Chat.setViewportView(ChatText);
+
+        ChatWriter.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ChatWriterKeyPressed(evt);
+            }
+        });
+
+        JoinRoom.setAlignmentY(0.0F);
+        JoinRoom.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        JoinRoom.setPressedIcon(new ImageIcon("D:\\Eclipse\\bg\\joinroom2.jpg"));
+        JoinRoom.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JoinRoomMouseClicked(evt);
+            }
+        });
+
+        UserData.setBorder(new javax.swing.border.LineBorder(java.awt.Color.darkGray, 2, true));
         UserData.setPreferredSize(new java.awt.Dimension(300, 800));
 
         UserImage.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
@@ -67,7 +142,7 @@ public class Lobby extends javax.swing.JFrame {
         UserImage.setLayout(UserImageLayout);
         UserImageLayout.setHorizontalGroup(
             UserImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 146, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         UserImageLayout.setVerticalGroup(
             UserImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -75,23 +150,41 @@ public class Lobby extends javax.swing.JFrame {
         );
 
         Data.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = {  };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
         UserList.setViewportView(Data);
 
-        Logout.setText("로그아웃");
+        Logout.setAlignmentY(0.0F);
+        Logout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Logout.setPressedIcon(new ImageIcon("D:\\Eclipse\\bg\\logout2.png"));
         Logout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 LogoutMouseClicked(evt);
             }
         });
 
-        Exit.setText("종료");
+        Exit.setAlignmentY(0.0F);
+        Exit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Exit.setPressedIcon(new ImageIcon("D:\\Eclipse\\bg\\exit2.png"));
         Exit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ExitMouseClicked(evt);
+            }
+        });
+
+        EntireCheck.setToolTipText("");
+        EntireCheck.setAlignmentY(0.0F);
+        EntireCheck.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        EntireCheck.setMaximumSize(new java.awt.Dimension(150, 50));
+        EntireCheck.setMinimumSize(new java.awt.Dimension(150, 50));
+        EntireCheck.setOpaque(false);
+        EntireCheck.setPreferredSize(new java.awt.Dimension(152, 50));
+        EntireCheck.setPressedIcon(new ImageIcon("D:\\Eclipse\\bg\\entirecheck2.png"));
+        EntireCheck.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EntireCheckMouseClicked(evt);
             }
         });
 
@@ -102,112 +195,123 @@ public class Lobby extends javax.swing.JFrame {
             .addGroup(UserDataLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(UserDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(UserList)
-                    .addGroup(UserDataLayout.createSequentialGroup()
-                        .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Exit, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(UserDataLayout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(UserImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserDataLayout.createSequentialGroup()
+                        .addGroup(UserDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(UserList, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, UserDataLayout.createSequentialGroup()
+                                .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UserDataLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(UserDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(UserImage, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                            .addComponent(EntireCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(84, 84, 84))))
         );
         UserDataLayout.setVerticalGroup(
             UserDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UserDataLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(UserImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(UserList, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(EntireCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(UserList, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(UserDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Exit, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                    .addComponent(Logout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18))
+                    .addComponent(Logout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Exit, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        ChatWriter.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                ChatWriterKeyPressed(evt);
-            }
-        });
-
-        MakeRoom.setText("방 만들기");
-
-        JoinRoom.setText("방 들어가기");
-
-        RoomList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        Room.setViewportView(RoomList);
-
-        ChatText.setColumns(20);
-        ChatText.setRows(5);
-        Chat.setViewportView(ChatText);
+        javax.swing.GroupLayout BackgroundLayout = new javax.swing.GroupLayout(Background);
+        Background.setLayout(BackgroundLayout);
+        BackgroundLayout.setHorizontalGroup(
+            BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BackgroundLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackgroundLayout.createSequentialGroup()
+                        .addComponent(MakeRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JoinRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Chat)
+                    .addComponent(Room, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+                    .addComponent(ChatWriter))
+                .addGap(18, 18, 18)
+                .addComponent(UserData, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        BackgroundLayout.setVerticalGroup(
+            BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackgroundLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(UserData, javax.swing.GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE)
+                    .addGroup(BackgroundLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(Room, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(JoinRoom, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                            .addComponent(MakeRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Chat, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(ChatWriter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(17, Short.MAX_VALUE)
-                        .addComponent(MakeRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JoinRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Chat)
-                            .addComponent(Room)
-                            .addComponent(ChatWriter, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(UserData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(Background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(UserData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addComponent(Room, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JoinRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MakeRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Chat)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ChatWriter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(Background, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
+        // 종료버튼 마우스 좌클릭
+        String title = "종료";
+        String exit = "종료하시겠습니까?";
+        int select = 0;
+        select = JOptionPane.showConfirmDialog(null, exit, title, JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE);
+        if(select == 0){
+            System.exit(0);
+        } else {
+        }
     }//GEN-LAST:event_ExitMouseClicked
 
     private void LogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutMouseClicked
-        // TODO add your handling code here:
-        dispose();
-        Start S = new Start();
-        S.setSize(600, 400);
-        Dimension frameSize = S.getSize();
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        S.setLocation((screenSize.width - frameSize.width)/2, (screenSize.height - frameSize.height)/2);
-        Container contentPane = S.getContentPane();
-        S.setVisible(true);
+        // 로그아웃 버튼 마우스 좌클릭
+        String title = "로그아웃";
+        String exit = "로그아웃 하시겠습니까?";
+        int select = 0;
+        select = JOptionPane.showConfirmDialog(null, exit, title, JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE);
+        if(select == 0){
+            dispose();
+            Start S = new Start();
+            S.setSize(600, 400);
+            Dimension frameSize = S.getSize();
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            S.setLocation((screenSize.width - frameSize.width)/2, (screenSize.height - frameSize.height)/2);
+            Container contentPane = S.getContentPane();
+            S.setVisible(true);
+        } else {
+        }
     }//GEN-LAST:event_LogoutMouseClicked
 
     private void ChatWriterKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ChatWriterKeyPressed
-        // TODO add your handling code here:
+        // 채팅창 입력 후 엔터키 입력
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 			//...동작을 실행한다. 
@@ -226,7 +330,7 @@ public class Lobby extends javax.swing.JFrame {
              pack();
              */
            
-             ChatText.append(chat + "\n");
+             ChatText.append(ID + " : " +chat + "\n");
              ChatWriter.selectAll();
              ChatText.setCaretPosition(ChatText.getDocument().getLength());
              ChatWriter.setText("");
@@ -234,6 +338,26 @@ public class Lobby extends javax.swing.JFrame {
 	}
     }//GEN-LAST:event_ChatWriterKeyPressed
 
+    private void MakeRoomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MakeRoomMouseClicked
+        // 방 만들기 버튼 좌클릭
+        String room= RoomListSize + "번방";
+        RoomListSize++;
+        ;
+    }//GEN-LAST:event_MakeRoomMouseClicked
+
+    private void EntireCheckMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntireCheckMouseClicked
+        // 전적 확인 버튼 좌클릭
+        
+    }//GEN-LAST:event_EntireCheckMouseClicked
+
+    private void JoinRoomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JoinRoomMouseClicked
+        // 방 들어가기 버튼 좌클릭
+        
+    }//GEN-LAST:event_JoinRoomMouseClicked
+
+    private String getID(String ID){
+        return ID;
+    }
     /**
      * @param args the command line arguments
      */
@@ -265,26 +389,31 @@ public class Lobby extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Lobby().setVisible(true);
+               // new Lobby().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Background;
     private javax.swing.JScrollPane Chat;
     private javax.swing.JTextArea ChatText;
     private javax.swing.JFormattedTextField ChatWriter;
     private javax.swing.JList<String> Data;
+    //전적 확인
+    private javax.swing.JButton EntireCheck;
+    //종료 버튼
     private javax.swing.JButton Exit;
+    // 방 들어가기 버튼
     private javax.swing.JButton JoinRoom;
+    // 로그아웃 버튼
     private javax.swing.JButton Logout;
+    // 방 만들기 버튼
     private javax.swing.JButton MakeRoom;
     private javax.swing.JScrollPane Room;
-    private javax.swing.JList<String> RoomList;
+    public static javax.swing.JList<String> RoomList;
     private javax.swing.JPanel UserData;
     private javax.swing.JPanel UserImage;
     private javax.swing.JScrollPane UserList;
-    private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

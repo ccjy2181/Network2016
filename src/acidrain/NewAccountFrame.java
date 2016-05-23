@@ -19,11 +19,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Enumeration;
 
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 
 /*
  * 회원가입 화면 NewAccountFrame

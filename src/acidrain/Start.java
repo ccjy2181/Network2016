@@ -20,12 +20,16 @@ import java.sql.*;
 public class Start extends javax.swing.JFrame {
 
     ImageIcon icon;
+    ImageIcon ID_icon;
+    ImageIcon PW_icon;
     /**
      * Creates new form Start
      */
     
     public Start() {
         icon = new ImageIcon("D:\\Eclipse\\bg\\start_bg.jpg");
+        ID_icon = new ImageIcon("D:\\Eclipse\\bg\\ID.png");
+        PW_icon = new ImageIcon("D:\\Eclipse\\bg\\PW.png");
         initComponents();
     }
 
@@ -52,12 +56,38 @@ public class Start extends javax.swing.JFrame {
                 super.paintComponent(g);
             }
         };
-        ID_F = new javax.swing.JTextField();
-        PW_F = new javax.swing.JTextField();
         ID = new javax.swing.JFormattedTextField();
         Password = new javax.swing.JPasswordField();
-        Login = new javax.swing.JButton();
-        Sign_up = new javax.swing.JButton();
+        Login = new javax.swing.JButton(new ImageIcon("D:\\Eclipse\\bg\\login.jpg"));
+        Sign_up = new javax.swing.JButton(new ImageIcon("D:\\Eclipse\\bg\\signup.jpg"));
+        ID_F = new javax.swing.JPanel(){
+            public void paintComponent(Graphics g) {
+                // Approach 1: Dispaly image at at full size
+                g.drawImage(ID_icon.getImage(), 0, 0, null);
+                // Approach 2: Scale image to size of component
+                // Dimension d = getSize();
+                // g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+                // Approach 3: Fix the image position in the scroll pane
+                // Point p = scrollPane.getViewport().getViewPosition();
+                // g.drawImage(icon.getImage(), p.x, p.y, null);
+                setOpaque(false); //그림을 표시하게 설정,투명하게 조절
+                super.paintComponent(g);
+            }
+        };
+        PW_F = new javax.swing.JPanel(){
+            public void paintComponent(Graphics g) {
+                // Approach 1: Dispaly image at at full size
+                g.drawImage(PW_icon.getImage(), 0, 0, null);
+                // Approach 2: Scale image to size of component
+                // Dimension d = getSize();
+                // g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+                // Approach 3: Fix the image position in the scroll pane
+                // Point p = scrollPane.getViewport().getViewPosition();
+                // g.drawImage(icon.getImage(), p.x, p.y, null);
+                setOpaque(false); //그림을 표시하게 설정,투명하게 조절
+                super.paintComponent(g);
+            }
+        };
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -83,24 +113,6 @@ public class Start extends javax.swing.JFrame {
             }
         });
 
-        ID_F.setEditable(false);
-        ID_F.setText("ID");
-        ID_F.setToolTipText("");
-        ID_F.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ID_FActionPerformed(evt);
-            }
-        });
-
-        PW_F.setEditable(false);
-        PW_F.setText("PW");
-        PW_F.setToolTipText("");
-        PW_F.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PW_FActionPerformed(evt);
-            }
-        });
-
         ID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IDActionPerformed(evt);
@@ -118,7 +130,9 @@ public class Start extends javax.swing.JFrame {
             }
         });
 
-        Login.setText("로그인");
+        Login.setMaximumSize(new java.awt.Dimension(81, 29));
+        Login.setMinimumSize(new java.awt.Dimension(81, 29));
+        Login.setPreferredSize(new java.awt.Dimension(81, 29));
         Login.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 LoginMouseClicked(evt);
@@ -130,47 +144,73 @@ public class Start extends javax.swing.JFrame {
             }
         });
 
-        Sign_up.setText("회원가입");
+        Sign_up.setToolTipText("");
+        Sign_up.setMaximumSize(new java.awt.Dimension(81, 29));
+        Sign_up.setMinimumSize(new java.awt.Dimension(81, 29));
+        Sign_up.setPreferredSize(new java.awt.Dimension(81, 29));
         Sign_up.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Sign_upMouseClicked(evt);
             }
         });
 
+        javax.swing.GroupLayout ID_FLayout = new javax.swing.GroupLayout(ID_F);
+        ID_F.setLayout(ID_FLayout);
+        ID_FLayout.setHorizontalGroup(
+            ID_FLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 35, Short.MAX_VALUE)
+        );
+        ID_FLayout.setVerticalGroup(
+            ID_FLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 29, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout PW_FLayout = new javax.swing.GroupLayout(PW_F);
+        PW_F.setLayout(PW_FLayout);
+        PW_FLayout.setHorizontalGroup(
+            PW_FLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 35, Short.MAX_VALUE)
+        );
+        PW_FLayout.setVerticalGroup(
+            PW_FLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout MainFrameLayout = new javax.swing.GroupLayout(MainFrame);
         MainFrame.setLayout(MainFrameLayout);
         MainFrameLayout.setHorizontalGroup(
             MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainFrameLayout.createSequentialGroup()
-                .addContainerGap(187, Short.MAX_VALUE)
-                .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ID_F)
-                    .addComponent(PW_F, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
-                .addGap(8, 8, 8)
+                .addContainerGap(167, Short.MAX_VALUE)
                 .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(MainFrameLayout.createSequentialGroup()
+                        .addComponent(ID_F, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(MainFrameLayout.createSequentialGroup()
+                        .addComponent(PW_F, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Sign_up, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(141, 141, 141))
+                .addGap(160, 160, 160))
         );
         MainFrameLayout.setVerticalGroup(
             MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainFrameLayout.createSequentialGroup()
-                .addContainerGap(242, Short.MAX_VALUE)
-                .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ID_F, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(259, Short.MAX_VALUE)
                 .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(PW_F, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(Sign_up, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(94, 94, 94))
+                    .addComponent(Login, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ID_F, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Sign_up, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Password)
+                    .addComponent(PW_F, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(78, 78, 78))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -189,8 +229,8 @@ public class Start extends javax.swing.JFrame {
 
    
     private void clearText(){
-      ID_F.setText("");
-      PW_F.setText("");
+      ID.setText("");
+      Password.setText("");
    }
      protected void loginCheck(String id, String pw) {
       /*
@@ -242,7 +282,7 @@ public class Start extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, infoText, "알림창", JOptionPane.INFORMATION_MESSAGE);
          }else if(result ==1){
              dispose();
-             Lobby L = new Lobby();
+             Lobby L = new Lobby(id);
              L.setSize(1050, 800);
              Dimension frameSize = L.getSize();
              Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -259,29 +299,12 @@ public class Start extends javax.swing.JFrame {
    }
     
     
-    private void ID_FActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ID_FActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ID_FActionPerformed
-
-    private void PW_FActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PW_FActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PW_FActionPerformed
-
     private void IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_IDActionPerformed
 
-    private void LoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginMouseClicked
-        // TODO add your handling code here:
-        
-       String InputID = ID.getText();
-       String PW = Password.getText();
-       loginCheck(InputID,PW);
-        
-    }//GEN-LAST:event_LoginMouseClicked
-
     private void Sign_upMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Sign_upMouseClicked
-        // TODO add your handling code here:
+        // 회원가입 버튼 좌클릭
         dispose();
         NewAccountFrame NewA = new NewAccountFrame();
         Dimension frameSize = NewA.getSize();
@@ -300,12 +323,8 @@ public class Start extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_MainFrameComponentAdded
 
-    private void LoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LoginKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LoginKeyPressed
-
     private void MainFrameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MainFrameKeyPressed
-        // TODO add your handling code here:
+        // 메인화면에서 엔터키 입력시 로그인 버튼 좌클릭과 같은 행동 실행
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 			//...동작을 실행한다.
             String InputID = ID.getText();
@@ -315,7 +334,7 @@ public class Start extends javax.swing.JFrame {
     }//GEN-LAST:event_MainFrameKeyPressed
 
     private void PasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PasswordKeyPressed
-        // TODO add your handling code here:
+        // 패스워드 입력 후 엔터키 입력시 로그인 버튼 좌클릭과 같은 행동 실행
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 			//...동작을 실행한다.
             String InputID = ID.getText();
@@ -328,6 +347,19 @@ public class Start extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_IDKeyPressed
+
+    private void LoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LoginKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LoginKeyPressed
+
+    private void LoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginMouseClicked
+        // 로그인 버튼 마우스 좌클릭
+
+        String InputID = ID.getText();
+        String PW = Password.getText();
+        loginCheck(InputID,PW);
+
+    }//GEN-LAST:event_LoginMouseClicked
 
     /**
      * @param args the command line arguments
@@ -365,12 +397,19 @@ public class Start extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    // 아이디 입력 텍스트 필드
     private javax.swing.JFormattedTextField ID;
-    private javax.swing.JTextField ID_F;
+    // ID 이미지 패널
+    private javax.swing.JPanel ID_F;
+    // 로그인 버튼
     private javax.swing.JButton Login;
+    // 배경화면용 패널
     private javax.swing.JPanel MainFrame;
-    private javax.swing.JTextField PW_F;
+    // 패스워드 이미지 패널
+    private javax.swing.JPanel PW_F;
+    // 비밀번호 입력 텍스트 필드
     private javax.swing.JPasswordField Password;
+    // 비밀번호 버튼
     private javax.swing.JButton Sign_up;
     // End of variables declaration//GEN-END:variables
 }
