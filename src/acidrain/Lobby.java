@@ -5,7 +5,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /*
@@ -18,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author Administrator
  */
-public class Lobby extends javax.swing.JFrame {
+public class Lobby extends javax.swing.JFrame implements  WindowListener {
     ImageIcon bg_icon;
     ImageIcon user_ui;
     String ID;
@@ -279,6 +282,7 @@ public class Lobby extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void ExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitMouseClicked
         // 종료버튼 마우스 좌클릭
         String title = "종료";
@@ -416,4 +420,49 @@ public class Lobby extends javax.swing.JFrame {
     private javax.swing.JPanel UserImage;
     private javax.swing.JScrollPane UserList;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+       // TODO Auto-generated method stub
+       int confirm = 0;
+       String check = "정말로 종료하시겠습니까?";
+       confirm = JOptionPane.showConfirmDialog(null, check, "확인 창", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+       if(confirm == 0){
+          // 예를 선택한 경우
+          setDefaultCloseOperation(EXIT_ON_CLOSE);
+       }else{
+          // 아니오를 선택한 경우
+          setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+       }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
